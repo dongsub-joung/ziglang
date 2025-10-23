@@ -23,11 +23,14 @@ pub fn multiple(a: i32, b: i32) i32 {
 }
 
 pub fn divid(a: i32, b: i32) i32 {
-    if ((a == 0) || (b == 0)) {
+    if (a == 0) {
         @panic("dividing zero");
-    } else {
-        return a / b;
     }
+    if (b == 0) {
+        @panic("dividing zero");
+    }
+
+    return @divTrunc(a, b);
 }
 
 test "testing Add" {
@@ -46,7 +49,12 @@ test "Testing multiple " {
 }
 
 test "Testing divid" {
-    try std.testing.expectEqual(10 / 3, 3);
+    try std.testing.expectEqual(@divTrunc(10, 3), 3);
+}
+
+test "Testing dividing by zero" {
+    const MyError = error{DivideByZero};
+    try std.testing.expectError(MyError.DivideByZero, divid(10, 0));
 }
 
 const std = @import("std");

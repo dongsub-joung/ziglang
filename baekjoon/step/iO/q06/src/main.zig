@@ -46,7 +46,7 @@ test "Testing multiple " {
 }
 
 test "Testing divid" {
-    try std.testing.expect(std.math.divTrunc(i32, 10, 3));
+    try std.testing.expectEqual(10 / 3, 3);
 }
 
 const std = @import("std");
